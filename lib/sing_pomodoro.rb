@@ -14,10 +14,10 @@ get '/' do
   haml :index
 end
 
-get '/start/:for' do
-  Pomodoro.start(params[:for].split)
+post '/start/:for' do
+  Pomodoro.start(:who => params[:for].split)
 end
 
-get '/interrupt/:for' do
-  Pomodoro.interrupt(params[:for].split)
+post '/interrupt/:for' do
+  Pomodoro.interrupt(:who => params[:for].split)
 end

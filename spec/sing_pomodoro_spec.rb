@@ -28,17 +28,17 @@ describe 'Sing Pomodoro' do
   end
   
   it 'responds to starting a pomodoro from a user' do
-    Pomodoro.should_receive(:start).with(['chris@edendevelopment.co.uk'])
-    get '/start/chris@edendevelopment.co.uk'
+    Pomodoro.should_receive(:start).with(:who => ['chris@edendevelopment.co.uk'])
+    post '/start/chris@edendevelopment.co.uk'
   end
   
   it 'responds to starting a pomodoro from two users' do
-    Pomodoro.should_receive(:start).with(['chris@edendevelopment.co.uk', 'john@test.com'])
-    get '/start/chris@edendevelopment.co.uk+john@test.com'
+    Pomodoro.should_receive(:start).with(:who => ['chris@edendevelopment.co.uk', 'john@test.com'])
+    post '/start/chris@edendevelopment.co.uk+john@test.com'
   end
   
   it 'responds to interrupting a pomodoro' do
-    Pomodoro.should_receive(:interrupt).with(['chris@edendevelopment.co.uk', 'john@test.com'])
-    get '/interrupt/chris@edendevelopment.co.uk+john@test.com'
+    Pomodoro.should_receive(:interrupt).with(:who => ['chris@edendevelopment.co.uk', 'john@test.com'])
+    post '/interrupt/chris@edendevelopment.co.uk+john@test.com'
   end
 end
