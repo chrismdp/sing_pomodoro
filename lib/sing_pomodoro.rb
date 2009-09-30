@@ -1,0 +1,2 @@
+class SingPomodoro
+end
