@@ -7,9 +7,24 @@ describe 'Sing Pomodoro' do
     @app ||= Sinatra::Application
   end
 
-  it 'shows /' do
+  before do
+    Pomodoro.delete_all
+  end
+
+  it 'shows the count of existing pomodoros' do
+    Pomodoro.start(:who => "chris@test.com")
+    Pomodoro.start(:who => ["joe@test.com", "bob@test.com"])
     get '/'
-    last_response.should be_ok
+    last_response.body.should match(/2 pomodoros running/)
+  end
+
+  it 'shows a list of existing pomodoros' do
+    Pomodoro.start(:who => "chris@test.com")
+    Pomodoro.start(:who => ["joe@test.com", "bob@test.com"])
+    get '/'
+    last_response.body.should match(/chris/)
+    last_response.body.should match(/joe/)
+    last_response.body.should match(/bob/)
   end
   
   it 'responds to starting a pomodoro from a user' do

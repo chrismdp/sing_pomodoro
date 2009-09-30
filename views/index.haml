@@ -1,0 +1,7 @@
+= "#{@pomodoros.count} pomodoros running"
+%ul
+  - @pomodoros.each do |pomodoro|
+    %li
+      = pomodoro.id
+      = ":"
+      = pomodoro.who.join(',')

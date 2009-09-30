@@ -16,20 +16,26 @@ end
 
 require File.dirname(__FILE__) + '/lib/sing_pomodoro'
 
+def migrate(env)
+  ActiveRecord::Base.establish_connection(use_database(env))
+  ActiveRecord::Base.logger = Logger.new(STDOUT)
+  ActiveRecord::Migration.verbose = true
+  ActiveRecord::Migrator.migrate("db/migrate")
+end
+
 task :default => :spec
 
 desc "Run the specs under spec/models"
 Spec::Rake::SpecTask.new do |t|
-  @appenv = 'test'
+  migrate("test")
   t.spec_opts = ['--options', "spec/spec.opts"]
   t.spec_files = FileList['spec/*_spec.rb']
 end
 
 namespace :db do
   desc "Migrate the database"
-    task :migrate do
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
-    ActiveRecord::Migration.verbose = true
-    ActiveRecord::Migrator.migrate("db/migrate")
+  task :migrate do
+    migrate("development")
   end
 end
+

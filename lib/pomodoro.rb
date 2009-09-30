@@ -12,6 +12,11 @@ class Pomodoro < ActiveRecord::Base
   end
   
   def running?
-    true
+    !@failed
+  end
+
+  def interrupt!
+    @failed = true
+    save
   end
 end

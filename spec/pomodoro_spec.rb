@@ -27,6 +27,8 @@ describe Pomodoro, 'existing' do
   end
   
   it 'records the interruption of an existing Pomodoro' do
-    pending
+    p = Pomodoro.existing("chris@test.com")
+    p.interrupt!
+    p.should_not be_running
   end
 end
