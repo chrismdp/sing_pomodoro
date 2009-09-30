@@ -35,7 +35,7 @@ end
 namespace :db do
   desc "Migrate the database"
   task :migrate do
-    migrate("development")
+    migrate("production")
   end
 end
 
