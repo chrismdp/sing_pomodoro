@@ -1,7 +1,10 @@
-= "#{@pomodoros.size} pomodoros running"
-%ul
-  - @pomodoros.each do |pomodoro|
-    %li
-      = pomodoro.id
-      = ":"
-      = pomodoro.who.join(',')
+%html
+  %body
+    %h1 Sing Pomodoro
+    %h2 #{@pomodoros.size} pomodoros running
+    %ul
+      - @pomodoros.each do |pomodoro|
+        %li
+          = pomodoro.id
+          = ":"
+          = pomodoro.who.join(',')
