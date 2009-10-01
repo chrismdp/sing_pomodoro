@@ -35,10 +35,12 @@ describe 'Sing Pomodoro' do
   it 'responds to starting a pomodoro from two users' do
     Pomodoro.should_receive(:start).with(:who => ['chris@edendevelopment.co.uk', 'john@test.com'])
     post '/start/chris@edendevelopment.co.uk+john@test.com'
+    last_response.body.should match /OK/
   end
   
   it 'responds to interrupting a pomodoro' do
     Pomodoro.should_receive(:interrupt).with(:who => ['chris@edendevelopment.co.uk', 'john@test.com'])
     post '/interrupt/chris@edendevelopment.co.uk+john@test.com'
+    last_response.body.should match /OK/
   end
 end

@@ -16,8 +16,10 @@ end
 
 post '/start/:for' do
   Pomodoro.start(:who => params[:for].split)
+  "OK"
 end
 
 post '/interrupt/:for' do
   Pomodoro.interrupt(:who => params[:for].split)
+  "OK"
 end
