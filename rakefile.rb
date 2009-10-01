@@ -16,13 +16,6 @@ end
 
 require File.dirname(__FILE__) + '/lib/sing_pomodoro'
 
-def migrate(env)
-  ActiveRecord::Base.establish_connection(use_database(env))
-  ActiveRecord::Base.logger = Logger.new(STDOUT)
-  ActiveRecord::Migration.verbose = true
-  ActiveRecord::Migrator.migrate("db/migrate")
-end
-
 task :default => :spec
 
 desc "Run the specs under spec/models"
@@ -34,7 +27,10 @@ end
 namespace :db do
   desc "Migrate the database"
   task :migrate do
-    migrate("production")
+    ActiveRecord::Base.establish_connection(use_database('production'))
+    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    ActiveRecord::Migration.verbose = true
+    ActiveRecord::Migrator.migrate("db/migrate")
   end
 end
 

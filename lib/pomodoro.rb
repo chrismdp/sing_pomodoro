@@ -14,9 +14,24 @@ class Pomodoro < ActiveRecord::Base
   def running?
     !@failed
   end
-
+  
+  def after_find
+    int = self['interrupts'] || ""
+    @interrupts = int.split(',')
+  end
+  
+  def interrupts
+    @interrupts
+  end
+  
+  def after_save
+    @interrupts ||= []
+    self[:interrupts] = @interrupts.join(',')
+  end
+  
   def interrupt!
-    @failed = true
+    @interrupts ||= []
+    @interrupts << Time.now
     save
   end
 end

@@ -7,7 +7,7 @@ require 'spec'
 require 'spec/autorun'
 require 'spec/interop/test'
 
-ActiveRecord::Base.establish_connection(use_database('test'))
+ActiveRecord::Base.establish_connection(use_database('production'))
 
 # set test environment
 set :environment, :test

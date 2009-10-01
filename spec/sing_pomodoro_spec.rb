@@ -3,24 +3,25 @@ require File.dirname(__FILE__) + '/spec_helper'
 describe 'Sing Pomodoro' do
   include Rack::Test::Methods
 
+  before do
+    Pomodoro.stub!(:create!) do |args|
+      Pomodoro.new(args)
+    end
+    p1 = Pomodoro.start(:who => "chris@test.com")
+    p2 = Pomodoro.start(:who => ["joe@test.com", "bob@test.com"])
+    Pomodoro.stub!(:all).and_return([p1, p2])
+  end
+
   def app
     @app ||= Sinatra::Application
   end
 
-  before do
-    Pomodoro.delete_all
-  end
-
   it 'shows the count of existing pomodoros' do
-    Pomodoro.start(:who => "chris@test.com")
-    Pomodoro.start(:who => ["joe@test.com", "bob@test.com"])
     get '/'
     last_response.body.should match(/2 pomodoros running/)
   end
 
   it 'shows a list of existing pomodoros' do
-    Pomodoro.start(:who => "chris@test.com")
-    Pomodoro.start(:who => ["joe@test.com", "bob@test.com"])
     get '/'
     last_response.body.should match(/chris/)
     last_response.body.should match(/joe/)
