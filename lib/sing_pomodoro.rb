@@ -21,6 +21,11 @@ def parse_who(params)
   params[:for].split(',')
 end
 
+get '/stylesheet.css' do
+  content_type 'text/css', :charset => 'utf-8'
+  sass :stylesheet
+end
+
 post '/start/:for' do
   Pomodoro.start(:who => parse_who(params))
   "OK"
