@@ -48,7 +48,7 @@ class Pomodoro < ActiveRecord::Base
   end
   
   def finished?
-    !@finished_at.nil?
+    !self.finished_at.nil?
   end
   
 private
