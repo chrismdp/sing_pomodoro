@@ -27,3 +27,20 @@ bin/pomodoro finish "My Name <my@email.address>"
 
 The output is pretty basic so far: ideas for stats welcome!
 
+To use the pomodoro timer app for OSX:
+
+1. Open preferences
+2. Click script
+3. Check the box next to the following events and put in the following:
+
+start:
+do shell script "~/path/to/bin/pomodoro start \"$pomodoroName\""
+
+interrupt:
+do shell script "~/path/to/bin/pomodoro interrupt \"$pomodoroName\""
+
+reset:
+do shell script "~/path/to/bin/pomodoro finish \"$pomodoroName\""
+
+end:
+do shell script "~/path/to/bin/pomodoro finish \"$pomodoroName\""
