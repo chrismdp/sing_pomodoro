@@ -2,8 +2,8 @@ class CreatePomodoros < ActiveRecord::Migration
   def self.up
     create_table :pomodoros do |t|
       t.column :who, :text
-      t.column :started_at, :date_time
-      t.column :finished_at, :date_time
+      t.column :started_at, :datetime
+      t.column :finished_at, :datetime
       t.timestamps
     end
   end
