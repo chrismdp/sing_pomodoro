@@ -2,9 +2,9 @@ class Pomodoro < ActiveRecord::Base
 
   MINIMUM_SECS = 25 * 60
 
-  named_scope :successful, { :conditions => ['finished_at <> ? and (finished_at - started_at) >= ?', nil, MINIMUM_SECS] }
-  named_scope :incomplete, { :conditions => ['finished_at <> ? and (finished_at - started_at) < ?', nil, MINIMUM_SECS] }
-  named_scope :running, { :conditions => ['finished_at = ?', nil] }
+  named_scope :successful, { :conditions => "finished_at IS NOT NULL and (finished_at - started_at) >= #{MINIMUM_SECS}" }
+  named_scope :incomplete, { :conditions => "finished_at IS NOT NULL and (finished_at - started_at) < #{MINIMUM_SECS}" }
+  named_scope :running, { :conditions => 'finished_at IS NULL' }
 
   def self.start(args = {})
     create!(:who => serialise_who(args[:who]), :started_at => Time.now)
