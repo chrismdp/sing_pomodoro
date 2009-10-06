@@ -2,9 +2,7 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 describe Pomodoro do
   before do
-    Pomodoro.stub!(:create!) do |args|
-      Pomodoro.new(args)
-    end
+    stub_pomodoros!
   end
 
   context 'starting' do
@@ -14,30 +12,36 @@ describe Pomodoro do
   
     it 'records one person who has started the Pomodoro' do
       p = Pomodoro.start :who => 'chris@test.com'
-      p.who.should == ['chris@test.com']
+      p.display_who.should == ['chris@test.com']
     end
   
     it 'records two people starting a Pomodoro' do
       p = Pomodoro.start :who => ['chris@test.com', 'joe@test.com']
-      p.who.should == ['chris@test.com', 'joe@test.com']
+      p.display_who.should == ['chris@test.com', 'joe@test.com']
     end  
   end
 
   context 'existing' do
     before do
-      p = Pomodoro.start :who => "chris@test.com"
-      Pomodoro.stub!(:find).and_return(p)
+      @p = Pomodoro.start :who => "Chris Parsons <chris@test.com>"
     end
 
     it 'retrieves existing pomodoros' do
-      p = Pomodoro.existing("chris@test.com")
-      p.should be_running
+      @p.should be_running
     end
   
     it 'records the interruption of an existing Pomodoro' do
-      p = Pomodoro.existing("chris@test.com")
-      p.interrupt!
-      p.should have(1).interrupts
+      @p.interrupt!
+      @p.should have(1).interrupts
+    end
+
+    it 'finishes the existing pomodoro' do
+      @p.finish!
+      @p.should be_finished
+    end
+
+    it 'will not display email addresses' do
+      @p.display_who.should == ['Chris Parsons']
     end
   end
 end

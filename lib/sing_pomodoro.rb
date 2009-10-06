@@ -10,16 +10,39 @@ set :haml, {:format => :html5 }
 set :views, File.dirname(__FILE__) + '/../views'
 
 get '/' do
-  @pomodoros = Pomodoro.all
+  @total_pomodoro_count = Pomodoro.count
+  @successful_pomodoros = Pomodoro.successful
+  @running_pomodoros = Pomodoro.running
+  @incomplete_pomodoros = Pomodoro.incomplete
   haml :index
 end
 
+def parse_who(params)
+  params[:for].split(',')
+end
+
 post '/start/:for' do
-  Pomodoro.start(:who => params[:for].split)
+  Pomodoro.start(:who => parse_who(params))
   "OK"
 end
 
+def do_for_existing(action, params)
+  p = Pomodoro.existing(parse_who(params))
+  if (p)
+    if p.send(action)
+      "OK"
+    else
+      "ERROR DOING #{action}"
+    end
+  else
+    "NOT FOUND"
+  end
+end  
+
 post '/interrupt/:for' do
-  Pomodoro.interrupt(:who => params[:for].split)
-  "OK"
+  do_for_existing(:interrupt!, params)
+end
+
+post '/finish/:for' do
+  do_for_existing(:finish!, params)
 end

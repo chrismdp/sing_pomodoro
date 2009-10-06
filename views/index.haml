@@ -1,10 +1,22 @@
 %html
   %body
     %h1 Sing Pomodoro
-    %h2 #{@pomodoros.size} pomodoros running
-    %ul
-      - @pomodoros.each do |pomodoro|
-        %li
-          = pomodoro.id
-          = ":"
-          = pomodoro.who.join(',')
+    %h2 #{@total_pomodoro_count} pomodoros running
+    .running
+      %h1 Pomodoros in Progress
+      %ul
+        - @running_pomodoros.each do |pomodoro|
+          %li
+            = pomodoro.display_who.join(', ')
+    .success
+      %h1 Pomodoros Completed
+      %ul
+        - @successful_pomodoros.each do |pomodoro|
+          %li
+            = pomodoro.display_who.join(', ')
+    .incomplete
+      %h1 Incomplete Pomodoros
+      %ul
+        - @incomplete_pomodoros.each do |pomodoro|
+          %li
+            = pomodoro.display_who.join(', ')
