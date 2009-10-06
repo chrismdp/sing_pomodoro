@@ -1,8 +1,8 @@
 class Pomodoro < ActiveRecord::Base
 
-  named_scope :successful, { :conditions => ['finished_at NOT NULL and (finished_at - started_at) >= ?', 25.minutes.ago] }
-  named_scope :incomplete, { :conditions => ['finished_at NOT NULL and (finished_at - started_at) < ?', 25.minutes.ago] }
-  named_scope :running, { :conditions => 'finished_at IS NULL' }
+  named_scope :successful, { :conditions => ['finished_at <> ? and (finished_at - started_at) >= ?', nil, 25.minutes.ago] }
+  named_scope :incomplete, { :conditions => ['finished_at <> ? and (finished_at - started_at) < ?', nil, 25.minutes.ago] }
+  named_scope :running, { :conditions => ['finished_at = ?', nil] }
 
   def self.start(args = {})
     create!(:who => serialise_who(args[:who]), :started_at => Time.now)
