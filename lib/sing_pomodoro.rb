@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'active_record'
 require 'haml'
+require 'sass'
 
 require File.dirname(__FILE__) + '/../lib/pomodoro'
 require File.dirname(__FILE__) + '/../lib/models'
