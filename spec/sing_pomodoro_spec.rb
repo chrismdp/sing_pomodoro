@@ -6,7 +6,7 @@ describe 'Sing Pomodoro' do
   before do
     stub_pomodoros!
     @running = [Pomodoro.start(:who => "chris@test.com"),
-      Pomodoro.start(:who => ["joe@test.com", "bob@test.com"])]
+    Pomodoro.start(:who => ["Joe <joe@test.com>", "Bob <bob@test.com>"])]
     Pomodoro.stub!(:running).and_return(@running)
     @successful = [Pomodoro.start(:who => 'charles@test')]
     Pomodoro.stub!(:successful).and_return(@successful)
@@ -19,27 +19,12 @@ describe 'Sing Pomodoro' do
     @app ||= Sinatra::Application
   end
 
-  it 'shows the count of existing pomodoros' do
-    get '/'
-    last_response.body.should match(/2 pomodoros running/)
-  end
-
   it 'shows a list of existing pomodoros' do
     Pomodoro.should_receive(:running).and_return(@running)
     get '/'
-    last_response.body.should have_tag('div.running', /chris/)
-  end
-  
-  it 'shows successful Pomodoros' do
-    Pomodoro.should_receive(:successful).and_return(@successful)
-    get '/'
-    last_response.body.should have_tag('div.success', /charles/)
-  end
-
-  it 'shows incomplete Pomodoros' do
-    Pomodoro.should_receive(:incomplete).and_return(@incomplete)
-    get '/'
-    last_response.body.should have_tag('div.incomplete', /gerald/)
+    last_response.body.should have_tag('div.running') do |inner|
+      inner.to_s.should match /chris/
+    end
   end
   
   it 'responds to starting a pomodoro from a user' do

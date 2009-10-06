@@ -6,9 +6,11 @@ require 'sass'
 
 require File.dirname(__FILE__) + '/../lib/pomodoro'
 require File.dirname(__FILE__) + '/../lib/models'
+require File.dirname(__FILE__) + '/../lib/person'
 
 set :haml, {:format => :html5 }
 set :views, File.dirname(__FILE__) + '/../views'
+set :public, File.dirname(__FILE__) + '/../public'
 
 get '/' do
   @total_pomodoro_count = Pomodoro.count

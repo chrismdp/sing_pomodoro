@@ -12,12 +12,12 @@ describe Pomodoro do
   
     it 'records one person who has started the Pomodoro' do
       p = Pomodoro.start :who => 'chris@test.com'
-      p.display_who.should == ['chris@test.com']
+      p.display_who.should == ['chris']
     end
   
     it 'records two people starting a Pomodoro' do
       p = Pomodoro.start :who => ['chris@test.com', 'joe@test.com']
-      p.display_who.should == ['chris@test.com', 'joe@test.com']
+      p.display_who.should == ['chris', 'joe']
     end  
   end
 
@@ -40,8 +40,12 @@ describe Pomodoro do
       @p.should be_finished
     end
 
-    it 'will not display email addresses' do
-      @p.display_who.should == ['Chris Parsons']
+    it "gives me an array of people when I ask" do
+      @p.should have(1).people
+    end
+    
+    it 'shows me the target finish time' do
+      @p.target.should == @p.started_at + 1500
     end
   end
 end

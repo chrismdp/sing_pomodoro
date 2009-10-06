@@ -1,24 +1,18 @@
 %html
   %head
     %link{:href => 'stylesheet.css', :rel => 'stylesheet', :media => 'all' }
+    %script{ :type => "text/javascript" :src => "/js/jquery-1.3.2.min.js" }
+    %script{ :type => "text/javascript" :src => "/js/jquery.countdown.min.js" }
   %body
     %h1 Sing Pomodoro
-    %h2 #{@total_pomodoro_count} pomodoros running
-    .running
-      %h1 Pomodoros in Progress
-      %ul
-        - @running_pomodoros.each do |pomodoro|
-          %li
-            = pomodoro.display_who.join(', ')
-    .success
-      %h1 Pomodoros Completed
-      %ul
-        - @successful_pomodoros.each do |pomodoro|
-          %li
-            = pomodoro.display_who.join(', ')
-    .incomplete
-      %h1 Incomplete Pomodoros
-      %ul
-        - @incomplete_pomodoros.each do |pomodoro|
-          %li
-            = pomodoro.display_who.join(', ')
+    .content
+      .left
+        .running_count 
+          %h2 Running
+        .running
+          = haml :pomodoro, :locals => { :pomodoros => @running_pomodoros }
+        %span.bgnumber #{@total_pomodoro_count}
+      .right
+        .success
+          %h2 Recently Completed
+          = haml :pomodoro, :locals => { :pomodoros => @successful_pomodoros }

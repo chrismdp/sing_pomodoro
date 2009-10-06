@@ -4,6 +4,6 @@ require 'rubygems'
 require 'CGI'
 require 'net/http'
 
-HOST = 'http://sing-pomodoro.heroku.com'
+HOST = 'http://localhost:9292'
 
 puts Net::HTTP.post_form(URI.parse(HOST + "/#{ARGV[0]}/"+CGI.escape(ARGV[1])), {})

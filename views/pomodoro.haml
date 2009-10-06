@@ -1,0 +1,21 @@
+- pomodoros.each do |pomodoro|
+  %ul
+    - pomodoro.people.each do |person|
+      %li
+        %img{:src => person.gravatar_url, :alt => person.name, :height => 50, :width => 50 }
+    %li
+      %span{:id => "pom_#{pomodoro.id}_countdown", :class => :countdown} 00:00
+      :javascript
+        $(document).ready(function() { 
+          date = new Date(#{pomodoro.target} * 1000);
+          now = new Date()
+          if (date < now)
+          {
+            $('#pom_#{pomodoro.id}_countdown').html("Done")
+          }
+          else
+          {
+            $("#pom_#{pomodoro.id}_countdown").countdown({until: date, compact: true, 
+                format: 'MS', description: ''});
+          }
+        }); 
