@@ -12,7 +12,7 @@ class Pomodoro < ActiveRecord::Base
   end
 
   def self.existing(who)
-    running.find_by_who(serialise_who(who))
+    self.running.find_by_who(serialise_who(who))
   end
 
   def people

@@ -7,12 +7,12 @@
     %h1 Sing Pomodoro
     .content
       .left
-        .running_count 
-          %h2 Running
+        %h2 Running
         .running
           = haml :pomodoro, :locals => { :pomodoros => @running_pomodoros }
-        %span.bgnumber #{@total_pomodoro_count}
+        %span.bgnumber #{@running_pomodoros.count}
       .right
-        .success
-          %h2 Recently Completed
-          = haml :pomodoro, :locals => { :pomodoros => @successful_pomodoros }
+        %h2 Recently Completed
+        = haml :pomodoro, :locals => { :pomodoros => @successful_pomodoros }
+        %span.bgnumber #{@successful_pomodoros.count}
+          

@@ -13,7 +13,6 @@ set :views, File.dirname(__FILE__) + '/../views'
 set :public, File.dirname(__FILE__) + '/../public'
 
 get '/' do
-  @total_pomodoro_count = Pomodoro.count
   @successful_pomodoros = Pomodoro.successful
   @running_pomodoros = Pomodoro.running
   @incomplete_pomodoros = Pomodoro.incomplete

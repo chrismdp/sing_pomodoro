@@ -5,6 +5,10 @@
         %img{:src => person.gravatar_url, :alt => person.name, :height => 50, :width => 50 }
     %li
       %span{:id => "pom_#{pomodoro.id}_countdown", :class => :countdown} 00:00
+      - if pomodoro.interrupts.size > 0
+        %br
+        %span.interrupts
+          Interrupts: #{pomodoro.interrupts.size}
       :javascript
         $(document).ready(function() { 
           date = new Date(#{pomodoro.target} * 1000);
