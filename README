@@ -1,0 +1,29 @@
+Sing Pomodoro - Pomodoro tracking, statistics and accountability
+
+To use:
+
+1. bin/pomodoro [action] [people]
+OR: 
+POST to http://sing-pomodoro.heroku.com/<action>/<urlencode(people)>
+
+People is formatted as follows:
+
+"My Name <my@email.address>"
+
+You can pass multiple people by seperating them with commas. Note that we don't show email addresses on the website, just the name you supply.
+
+Action can be:
+
+start - Start a pomodoro
+finish - Finish a pomodoro. If a pomodoro is finished less than 25 minutes then it counts as failed.
+interrupt - Register an interrupt. Currently this just increments a counter.
+
+For example:
+
+bin/pomodoro start "My Name <my@email.address>"
+bin/pomodoro finish "My Name <my@email.address>"
+
+2. View the result at http://sing-pomodoro.heroku.com
+
+The output is pretty basic so far: ideas for stats welcome!
+
