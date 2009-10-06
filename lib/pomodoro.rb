@@ -1,7 +1,9 @@
 class Pomodoro < ActiveRecord::Base
 
-  named_scope :successful, { :conditions => ['finished_at <> ? and (finished_at - started_at) >= ?', nil, 25.minutes] }
-  named_scope :incomplete, { :conditions => ['finished_at <> ? and (finished_at - started_at) < ?', nil, 25.minutes] }
+  MINIMUM_SECS = 25 * 60
+
+  named_scope :successful, { :conditions => ['finished_at <> ? and (finished_at - started_at) >= ?', nil, MINIMUM_SECS] }
+  named_scope :incomplete, { :conditions => ['finished_at <> ? and (finished_at - started_at) < ?', nil, MINIMUM_SECS] }
   named_scope :running, { :conditions => ['finished_at = ?', nil] }
 
   def self.start(args = {})
