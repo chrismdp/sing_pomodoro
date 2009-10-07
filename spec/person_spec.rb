@@ -31,9 +31,12 @@ describe Person do
     end
   end
   
-  context 'malformed' do
+  context 'malformed email' do
     it 'will handle blank emails correctly' do
       Person.new("<>").name.should == 'Anonymous'
+    end
+    
+    it "returns an empty gravatar" do
       Person.new("<>").gravatar_url.should match(/missing/)
     end
   end
