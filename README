@@ -44,3 +44,6 @@ do shell script "~/path/to/bin/pomodoro finish \"$pomodoroName\""
 
 end:
 do shell script "~/path/to/bin/pomodoro finish \"$pomodoroName\""
+
+You'll need to type in your "Name <email>,Name <email" as the pomodoro name when you start.
+
